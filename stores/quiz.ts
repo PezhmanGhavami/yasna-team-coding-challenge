@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-import { shuffledQuizData } from "~/utils/shuffleQuizData";
+import { shuffledQuizData } from "@/utils/shuffleQuizData";
 
 type Progress = boolean | null;
 
