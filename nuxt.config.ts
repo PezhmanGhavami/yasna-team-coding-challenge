@@ -3,6 +3,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@pinia/nuxt"],
   css: ["@/assets/scss/main.scss"],
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: "en",
+      },
+      title: "Quiz app",
+      meta: [{ name: "description", content: "Yasna Team's coding challenge" }],
+    },
+  },
   vite: {
     css: {
       preprocessorOptions: {
