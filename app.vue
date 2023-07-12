@@ -22,7 +22,7 @@
   background-color: #0095ff;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: $rounded;
 
   &:hover {
     cursor: pointer;
