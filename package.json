@@ -6,7 +6,8 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test": "vitest"
   },
   "overrides": {
     "vue": "latest"
@@ -14,8 +15,11 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@types/node": "^18.16.19",
+    "happy-dom": "^9.20.3",
     "nuxt": "^3.6.2",
-    "sass": "^1.63.6"
+    "nuxt-vitest": "^0.9.0",
+    "sass": "^1.63.6",
+    "vitest": "^0.30.1"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.11",
