@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { mount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 
 import ProgressBullet from "components/ProgressBullet.vue";
 
 describe("ProgressBullet", () => {
   describe("When the answerIsCorrect prop is null", () => {
-    const wrapper = mount(ProgressBullet, {
+    const wrapper = shallowMount(ProgressBullet, {
       props: {
         answerIsCorrect: null,
       },
@@ -21,7 +21,7 @@ describe("ProgressBullet", () => {
   });
 
   describe("When the answerIsCorrect prop is true", () => {
-    const wrapper = mount(ProgressBullet, {
+    const wrapper = shallowMount(ProgressBullet, {
       props: {
         answerIsCorrect: true,
       },
@@ -38,7 +38,7 @@ describe("ProgressBullet", () => {
   });
 
   describe("When the answerIsCorrect prop is false", () => {
-    const wrapper = mount(ProgressBullet, {
+    const wrapper = shallowMount(ProgressBullet, {
       props: {
         answerIsCorrect: false,
       },

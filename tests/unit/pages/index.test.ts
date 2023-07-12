@@ -1,13 +1,27 @@
-import { describe, expect, it, beforeEach } from "vitest";
-import { mount } from "@vue/test-utils";
-import { setActivePinia, createPinia } from "pinia";
+import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
+import { VueWrapper, mount } from "@vue/test-utils";
+import { createTestingPinia } from "@pinia/testing";
 
 import index from "@/pages/index.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
 
 describe("index page", () => {
+  let wrapper: VueWrapper | null = null;
+
   beforeEach(() => {
-    setActivePinia(createPinia());
+    wrapper = mount(index, {
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: vi.fn,
+          }),
+        ],
+      },
+    });
+  });
+
+  afterEach(() => {
+    wrapper?.unmount();
   });
 
   it("renders the start button", () => {

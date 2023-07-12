@@ -1,5 +1,6 @@
-import { describe, beforeEach, it, expect, vi } from "vitest";
+import { describe, expect, it, beforeEach, vi } from "vitest";
 import { setActivePinia, createPinia } from "pinia";
+import { createTestingPinia } from "@pinia/testing";
 
 import { useQuizStore } from "@/stores/quiz";
 
@@ -87,7 +88,22 @@ describe("quiz store", () => {
     });
 
     describe("if the index is qual to quizData.length-1", () => {
-      it("it won't change the index", () => {});
+      beforeEach(() => {
+        createTestingPinia({
+          createSpy: vi.fn,
+          initialState: {
+            quizData: [1, 2],
+            index: 1,
+          },
+        });
+      });
+
+      it("it won't change the index", () => {
+        const quiz = useQuizStore();
+        const oldIndex = quiz.index;
+        quiz.answerQuestion(true);
+        expect(quiz.index).toBe(oldIndex);
+      });
       it("navigates to /restult", () => {});
     });
   });
@@ -116,7 +132,22 @@ describe("quiz store", () => {
     });
 
     describe("if the index is qual to quizData.length-1", () => {
-      it("it won't change the index", () => {});
+      beforeEach(() => {
+        createTestingPinia({
+          createSpy: vi.fn,
+          initialState: {
+            quizData: [1, 2],
+            index: 1,
+          },
+        });
+      });
+
+      it("it won't change the index", () => {
+        const quiz = useQuizStore();
+        const oldIndex = quiz.index;
+        quiz.markQuestionAsWrong();
+        expect(quiz.index).toBe(oldIndex);
+      });
       it("navigates to /restult", () => {});
     });
   });

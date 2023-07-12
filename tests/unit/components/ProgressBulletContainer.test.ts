@@ -1,6 +1,6 @@
-import { describe, expect, it, beforeEach, vi } from "vitest";
-import { mount } from "@vue/test-utils";
-import { setActivePinia, createPinia } from "pinia";
+import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
+import { VueWrapper, shallowMount } from "@vue/test-utils";
+import { createTestingPinia } from "@pinia/testing";
 
 import ProgressBullet from "@/components/ProgressBullet.vue";
 import ProgressBulletsContainer from "@/components/ProgressBulletsContainer.vue";
@@ -12,13 +12,27 @@ vi.stubGlobal("navigateTo", (route: string) => {
 });
 
 describe("ProgressBulletsContainer", () => {
+  let wrapper: VueWrapper | null = null;
+
   beforeEach(() => {
-    setActivePinia(createPinia());
+    wrapper = shallowMount(ProgressBulletsContainer, {
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: vi.fn,
+          }),
+        ],
+      },
+    });
+  });
+
+  afterEach(() => {
+    wrapper?.unmount();
   });
 
   it("renders", () => {
     const quiz = useQuizStore();
-    const wrapper = mount(ProgressBulletsContainer);
+    const wrapper = shallowMount(ProgressBulletsContainer);
 
     const progressBullets = wrapper.findAllComponents(ProgressBullet);
 

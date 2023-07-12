@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { mount } from "@vue/test-utils";
+import { shallowMount } from "@vue/test-utils";
 
 import ButtonComponent from "@/components/ButtonComponent.vue";
 
 describe("ButtonComponent", () => {
   it("renders", () => {
-    const wrapper = mount(ButtonComponent, {
+    const wrapper = shallowMount(ButtonComponent, {
       props: {
         text: "test text",
       },

@@ -1,6 +1,6 @@
-import { describe, expect, it, beforeEach, vi } from "vitest";
-import { mount } from "@vue/test-utils";
-import { setActivePinia, createPinia } from "pinia";
+import { describe, expect, it, beforeEach, afterEach, vi } from "vitest";
+import { VueWrapper, shallowMount } from "@vue/test-utils";
+import { createTestingPinia } from "@pinia/testing";
 
 import AnswersContainer from "@/components/AnswersContainer.vue";
 import Answer from "@/components/Answer.vue";
@@ -12,14 +12,27 @@ vi.stubGlobal("navigateTo", (route: string) => {
 });
 
 describe("AnswerContainer", () => {
+  let wrapper: VueWrapper | null = null;
+
   beforeEach(() => {
-    setActivePinia(createPinia());
+    wrapper = shallowMount(AnswersContainer, {
+      global: {
+        plugins: [
+          createTestingPinia({
+            createSpy: vi.fn,
+          }),
+        ],
+      },
+    });
+  });
+
+  afterEach(() => {
+    wrapper?.unmount();
   });
 
   it("renders", () => {
     const quiz = useQuizStore();
-    const wrapper = mount(AnswersContainer);
-
+    const wrapper = shallowMount(AnswersContainer);
     const answers = wrapper.findAllComponents(Answer);
 
     expect(answers.length).toBe(quiz.currentQuestion.answers.length);
@@ -27,14 +40,13 @@ describe("AnswerContainer", () => {
 
   describe("when an answer is clicked", () => {
     it("navigates to the next page", () => {
-      const wrapper = mount(AnswersContainer);
-
+      const quiz = useQuizStore();
+      const wrapper = shallowMount(AnswersContainer);
       const answer = wrapper.findComponent(Answer);
 
-      // @ts-ignore:disable-next-line
-      const navigateToSpy = vi.spyOn(global, "navigateTo");
       answer.trigger("click");
-      expect(navigateToSpy).toHaveBeenCalledOnce();
+
+      expect(quiz.answerQuestion).toHaveBeenCalledOnce();
     });
   });
 });

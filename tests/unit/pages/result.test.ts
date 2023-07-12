@@ -1,6 +1,6 @@
 import { describe, expect, it, beforeEach, vi } from "vitest";
 import { mount } from "@vue/test-utils";
-import { setActivePinia, createPinia } from "pinia";
+import { createTestingPinia } from "@pinia/testing";
 
 import result from "@/pages/result.vue";
 import ButtonComponent from "@/components/ButtonComponent.vue";
@@ -10,9 +10,6 @@ vi.stubGlobal("navigateTo", (route: string) => {
 });
 
 describe("result page", () => {
-  beforeEach(() => {
-    setActivePinia(createPinia());
-  });
   // @ts-ignore:disable-next-line
   const navigateToSpy = vi.spyOn(global, "navigateTo");
 
