@@ -1,4 +1,4 @@
-import quizData from "~/assets/data.json";
+import quizData from "@/assets/data.json";
 
 function getShuffledArray(initialArray: any[]) {
   const localArray = [...initialArray];
