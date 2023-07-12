@@ -26,14 +26,14 @@ describe("AnswerContainer", () => {
   });
 
   describe("when an answer is clicked", () => {
-    it("navigates to the next page", async () => {
+    it("navigates to the next page", () => {
       const wrapper = mount(AnswersContainer);
 
       const answer = wrapper.findComponent(Answer);
 
       // @ts-ignore:disable-next-line
       const navigateToSpy = vi.spyOn(global, "navigateTo");
-      await answer.trigger("click");
+      answer.trigger("click");
       expect(navigateToSpy).toHaveBeenCalledOnce();
     });
   });
